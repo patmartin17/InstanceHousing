@@ -1,0 +1,146 @@
+3D Array for Block Locations
+
+Current problems without going forward: (NOTE: many of the following are crutial because we need these system in place for future development)
+- Need to write what each method does as well as clean up methods that are useless or written wrong, or could be done better.
+- We need to create an API for the current methods already created. This will help for other plugins and should be done before going forward to be able to build on eachother.
+- We need to check if a house is overlapping another house.
+- We need to recreate a new system for house creation using a menu. 
+	- A system for multiple doors choose the amount in the menu, and better block changing for selecting house blocks that obviously highlights which ones are chosen. Maybe blinking effect.
+- Saving isnt done correctly. Its only loading one block. We need to look through the saving system and make it more efficient.
+	- Also this needs to have an option for gradual loading to reduce lag. 
+- We need the ability to add multiple doors.
+- May be using too many hashmaps and arraylists look into other systems. 3D Array for Block Locations from MJ ask for his help.
+- Entry into a house with FrontDoorListeners isnt always fool proof. Sometimes it does not work at all. 
+- Blocks are dropping the wrong drops (need a method).
+	- Need a way to coorespond broken blocks with their natural drops. There could be a list or something but grass block needs to drop dirt and diamond_ore needs to drop diamonds and silk touch should work.
+- Need to add a 10 - 30 second check for if they are outside the house. This is if they find another way out or if they have a farm or such.
+	- You can leave your house for a few seconds. Think of warzone the 5 second rule of leaving the border. But after those seconds you will automatically be removed from your house. This will only be useful for farm houses.
+- Need a PlayerClickHouseBlockEvent or something along those lines (somewhat part of the API)
+- Instead of an actual door use sendblockchange to send a closed door and when they click send an open door. This way players arent sharing a door. (Maybe rethink this?)
+- Make it compatable to work with multiple players living in the house at once. As well as visitors. 
+	- Dual ownership will be saved by putting the owners uuid in the secondary owners file and it will refer to the first owner for house data. And allow that secondary owner to edit. 
+	- We can add house perms later. Currently just do add owner. 
+- The plugin only checks one direction for enternig the house. You can enter beside the house or whatever but the blocks will load incorrectly. 
+- Allow change between drop block and straight to inventory. Configurable.
+- Add pets and mobs that are per player specific. 
+- Add a decent config for all these options (Very annoying but required for sale purposes and convienence).
+- If someones file gets deleted the plugin doesnt make them a new one. We need to allow that. (Better file checking in general).
+- When a new player logs in the players in house are not invisible. Check if they logged out inside the house and save this in their file as CurrentHouse: null/jiggityHouseName
+	- The invisibility doesnt work sometimes when relogging. 
+- Has to allow for fence use
+- Make an API to allow other people to create new blocks that work in the future. 
+- Either dont let players who are not in a house inside a house area, or make them invisible to house owners.
+- Have to create an arraylist for all invisible entities that when any new player logs on those entities are set invisible for them. This will be very difficult but possible.
+- This same above thing needs to happen for: dropped items, pets, mined items, etc. 
+- You can place outside of your house and you can break important walls
+	- X min and max, Z min and max
+- Dropping items to and from visitors
+- Maybe use onChunkLoad for loading houses that need to be reloaded that are already loaded.
+- Itemdrops fall through the floor if its made of fake blocks
+- Create Delete methods for the housing system.
+- If you reload while online it causes an error saying the house doesnt exist
+- Update all messages with prefix from config and config messages.
+- Farming
+- Unload furniture on restart so there isnt a bunch of empty furniture.
+- Test sending blocks one at a time to see if the stairs will load correctly. Create a method for updating a block that doesnt exist. Fakeblock.updateblock() that if it is a stair or something will update it 1 second later to connect with other blocks.
+	- Try this before sending at the same time. This should update the block for the player based on other fake blocks.
+- Check for all players inside their house every second to see if they have exited. More if statements will cause less lag. And if they teleport? (dont forget to check for the world)
+- Option to give any items to the player when they purchase the house. 
+- Front door must be with x and z
+
+TODO RIGHT NOW: 
+
+Future things that are required:
+- Mail boxesd
+- Top house plot displayed to all based on highest vote. 
+- https://bukkit.org/threads/entity-shown-only-to-specific-player-s.155715/
+- When you want to use a beacon you can set your ceiling wallpaper as a beacon block and it will know to set glass up to the highest point on the house.
+- Allow entities like pets and enemies in the house (this only might be implemented).
+- When all of the following is done above add the ability to use each block in the house. 
+- Hermione Bag/Skamander breifcase using instancehousing to place a giant house that doesnt exist somewhere on the map. Will have to be above ground unless you can make it possible to walk through blocks. 
+- Look up difficult block patters as well as using banners and make sure they load correctly for the player (fish tanks, detailed beds, flower gardens).
+
+
+
+
+COMPLETED: 
+- Need to find a way to place blocks on top of and on the side of other blocks.
+- Need to find out how to load blocks in that are connected to eachother (Already a method exisiting or use a runnable to make them connect? test both).
+- The plugin doesnt properly check the direction of entry to a door (Also when saving). 
+- Need to determine how the plugin is currently working. It works the way I want without saving purposes but how?
+- Make it so if a player drops a block or a stack that it is invisible to everyone. 
+- Players get kicked for flying when standing on blocks.
+- Will have to make it so the blocks that the player drops are completely invisible to others. This will be a sendEntityEvent or whatever.
+- Need to add checks for walls before creation so we know which blocks they cant edit (we have to save the current blocks on creation and those are the ones they cant touch).
+	- We might also be able to accomplish this with metadata but it may have been removed. Add metadata to blocks and check those when they break them. Theres gotta be a better way than saving every block.
+	- These blocks will have persistant metadata that will be loaded on reload of the server. This way these blocks that were selcted on house creation can not be broken. They are preset blocks.
+- Adding blocks that were already there into a house datafile and if they're not air then we will save them and on reload add metadata. 
+
+
+
+
+
+
+Current block problems loading:
+- stairs, glasspane, fences, etc do not connect
+- signs dont promt a writing, instead add them with a click me to edit message. 
+- 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OLD SHIT:
+- add more ways of identifiying which house you are using for the api and for House.class
+- add a check for if the house is overlapping another house.
+- WRITE WHAT EACH METHOD IN EACH CLASS DOES SO WE CAN DECIPHER WHAT THINGS DO IN THE FUTURE. JUST LIKE BUNGEEQUEUEING
+
+
+(BEFORE DOING ANY OF THE FOLLOWING MAKE SURE TO FIX WHATS CURRENTLY WRONG, SAVING, WHY IS IT PLACING CORRECTLY, ETC.)
+SAVE THE HASHMAP INSTEAD OF SERIALIZING. LOOKS BETTER AND WILL LOAD FASTER! FIGURE THIS OUT
+
+current problems:
+- the plugin doesnt properly check the direction of entry
+- creating a house needs  messages checks, etc, currently the directions are completely fucked when saving. 
+- maybe instead of player move event do player open door event so we load the furnature the second they open the door and check three seconds later if they are inside and if they are dont unload but
+if they arent then unload the furnature.
+- players get kicked for flying when standing on blocks.
+- add checks to make sure they are not adding or remove furnature outside of their house.
+- https://bukkit.org/threads/entity-shown-only-to-specific-player-s.155715/
+- Save off limit blocks/boundary blocks/walls and floors when creating house to not allow palyers to break.
+- Clicking on a block inside your house will send a playerclickedhouseblockevent or something better named.
+- If the house is to have multiple doors they will have to be set on creation of the house with a shift left click and the door will turn into emerald blocks.
+- When you want to use a beacon you can set your ceiling wallpaper as a beacon block and it will know to set glass up to the highest point on the house.
+- instead of an actual door use sendblockchange to send a closed door and when they click send an open door. This way players arent sharing a door.
+- Make it compatable to work with multiple players living in the house at once. As well as visitors. 
+- It only checks the x when entering a door make sure it checks the z not too ospecificaly though because it wont allow them in.
+- Allow change between drop block and straight to inventory.
+- if someones file gets deleted the plugin doesnt make them a new one. We need to allow that.
+
+
+IMPORTANT
+- When the player purchases the house we will create an empty config with houses.housename.furnature (an empty list) and load that empty furnature object so that they can start
+placing blocks immediatly.

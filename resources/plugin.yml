@@ -1,0 +1,8 @@
+name: InstanceHousing
+version: 1.0.0
+description: instance housing technology.
+author: [Pattt]
+website: challenge.games
+main: com.pattt.instancehousing.InstanceHousing
+api-version: 1.13
+depend: [ProtocolLib]

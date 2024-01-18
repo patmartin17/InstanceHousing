@@ -1,0 +1,17 @@
+#EXAMPLE HOUSE:
+houses: 
+  house:
+    world: 'Lobby'
+    first_location:
+      x: -22
+      y: 91
+      z: 10
+    second_location:
+      x: -26
+      y: 88
+      z: 4
+    front_door_location:
+      x: -22
+      y: 89
+      z: 7
+    door_direction: 'WEST'

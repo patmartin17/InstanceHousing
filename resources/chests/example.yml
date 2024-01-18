@@ -1,0 +1,12 @@
+House1:
+  chests:
+    'x,y,z@x,y,z':
+        type: double
+        left: location
+        right: location
+        contents: [!asdhjao1:as]
+    'x,y,z':
+        type: single
+        location: location
+        contents: [!asdhjao1:as]
+            
